@@ -1,0 +1,230 @@
+html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: inline-block;
+    text-align: center;
+}
+
+body {
+    background-color: black;
+    background: url("background.jpg") no-repeat center center/cover;
+    margin: 0;
+    width: 100%;
+}
+
+.bodyLayer {
+    background-color: black;
+    opacity: 0.8;
+    height: 1800px;
+}
+
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+}
+
+
+h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    color: red;
+}
+
+p {
+    font-family: Helvetica, sans-serif;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #000000;
+    color: white;
+    font-size: 1rem;
+    padding: 5px;
+}
+
+#authentication-bar{
+    padding: 10px;
+}
+
+#user-details{
+    color: cadetblue;
+}
+
+.content {
+    padding: 20px;
+}
+
+.card {
+    background-color: white;
+    box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
+    padding: 5%;
+    border-radius: 20px;
+}
+
+.cards {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+}
+.cardsv2 {
+    height: 600px;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+    overflow-y: auto;
+}
+
+
+.reading {
+    color: #193036;
+}
+
+.date-time{
+    background-color: #474e5d;
+    padding: 10px;
+    border-radius: 10px;
+    color: white; 
+    font-family: Helvetica, sans-serif;
+}
+
+button {
+    background-color: white;
+    color: black;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+button:hover {
+   opacity: 0.8;
+}
+.deletebtn{
+    background-color: #c52c2c;
+    color: white;
+    font-weight: bold;
+}
+
+.form-elements-container{
+    padding: 16px;
+    width: 250px;
+    margin: 0 auto;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    overflow-y: scroll;
+}   
+tr, td {
+    padding: 0.25rem;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+tr:hover {
+    background-color: #ddd;
+}
+th {
+    position: sticky;
+    top: 0;
+    background-color: #50b8b4;
+    color: white;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #474e5d;
+    padding-top: 50px;
+}
+  
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+  
+/* Style the horizontal ruler */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* The Modal Close Button (x) */
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+    color: #f44336;
+    cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Changes displays for mobile devices and small screens */
+@media screen and (max-width: 800px) {
+    .cancelbtn, .deletebtn {
+        width: 100%;
+    }
+    .image {
+        text-align: center;
+        width: 250px;
+        height: 50px;
+        }
+    body {
+        text-align: center;
+        width: auto;
+        height: 1950px;
+    }
+    .bodyLayer {
+        width: auto;
+        height: 1950px;
+    }
+    .cardsv2 {
+        height: 360px;
+        width: 380px;
+    }
+    .cards {
+        width: 350px;
+    }
+
+}

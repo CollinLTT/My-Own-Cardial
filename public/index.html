@@ -1,0 +1,210 @@
+<!-- CS596 SDSU-->
+<!-- Collin Trump-->
+<!-- Spring 2023-->
+
+<!-- I built this website off of the source material in this tutorial: 
+https://randomnerdtutorials.com/esp32-esp8266-firebase-gauges-charts/-->
+
+<!-- The link to the My Own Cardial website can be found here:
+https://myowncardial.web.app/?-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable = no">
+    <title>MyOwnCardial</title>
+
+    <!-- include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+
+    <!-- include only the Firebase features as you need -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
+    <script>
+      // The web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyDrEZmbnxGXxQcky1jtl3Gs6HjTjrM3_yc",
+        authDomain: "myowncardial.firebaseapp.com",
+        databaseURL: "https://myowncardial-default-rtdb.firebaseio.com/",
+        projectId: "myowncardial",
+        storageBucket: "myowncardial.appspot.com",
+        messagingSenderId: "1058504430759",
+        appId: "1:1058504430759:web:808f37cb78c35acaf3b782",
+        measurementId: "G-MJS23X4GEK"
+      };
+
+      // Initialize firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // Make auth and database references
+      const auth = firebase.auth();
+      const db = firebase.database();
+
+    </script>
+
+    <!-- include highchartsjs to build the charts-->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- include to use jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--include icons from fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+
+    <link href="https://fonts.cdnfonts.com/css/bebas-neue" rel="stylesheet">
+    <!-- include Gauges Javascript library-->
+    <script src="https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.7/all/gauge.min.js"></script>
+    <!--reference for favicon-->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!--reference a stylesheet-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+  </head>
+
+  <body>
+    <div class = "bodyLayer">
+    <!--TOP BAR-->
+    <div class="topnav">
+      <!----<h1>MyOwnCardial Readings <i class="fas fa-clipboard-list"></i></h1>-->
+      <img src="cardialLogo.png" class = "image" alt="MyOwnCardial Logo">
+
+    <!--AUTHENTICATION BAR (USER DETAILS/LOGOUT BUTTON)-->
+    <div id="authentication-bar" style="display: none;">
+      <p><span id="authentication-status">User Signed In:</span>
+        <span style = "font-weight: bold; padding-top: 5px;" id="user-details">USEREMAIL</span>
+        <a href="/" id="logout-link"><button style = "background-color: red; color: white; font-weight: bold;">Sign Out</button></a>
+      </p>
+    </div>
+  </div>
+
+    <!--LOGIN FORM-->
+    <form id="login-form" style="display: none;">
+      <div class="form-elements-container">
+        <label for="input-email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Username" id="input-email" required>
+
+        <label for="input-password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" id="input-password" required>
+
+        <button type="submit" id="login-button">Login</button>
+        <p id="error-message" style="color:red;"></p>
+      </div>
+    </form>
+
+
+    <!--CONTENT (SENSOR READINGS)-->
+    <div class="content-sign-in" id="content-sign-in" style="display: none;">
+
+      <!--LAST UPDATE-->
+      <p><span class ="date-time">Last update: <span id="lastUpdate"></span></span></p>
+      <p>
+        <input type="button" style = "height: 1px;" id="cards-checkbox" name="cards-checkbox" checked>
+        <input type="button" style = "height: 8px;" id="gauges-checkbox" name="gauges-checkbox" checked>
+        <input type="button" style = "height: 16px;" id="charts-checkbox" name="charts-checkbox" checked>
+      </p>
+      <div id="cards-div">
+        <div class="cards">
+          <!--BPM-->
+          <div class="card">
+            <p style = "font-weight: bold;"><i class="fa-solid fa-heart-pulse" style="color:#bf0d0d;"></i> Heartrate</p>
+            <p><span class="reading"><span id="bpm_"></span> BPM</span></p>
+          </div>
+          <!--TEMPERATURE-->
+          <div class="card">
+            <p style = "font-weight: bold;"><i class="fas fa-temperature-half" style="color:#e43745;"></i> Temperature</p>
+            <p><span class="reading"><span id="temp"></span> &deg;C</span></p>
+          </div>
+          <!--HUMIDITY-->
+          <div class="card">
+            <p style = "font-weight: bold;"><i class="fas fa-tint" style="color:#00add6;"></i> Humidity</p>
+            <p><span class="reading"><span id="hum"></span> &percnt;</span></p>
+          </div>
+        </div>
+      </div>
+      <!--GAUGES-->
+      <div id ="gauges-div" style="display:none">
+        <div class="cards">
+          <!--TEMPERATURE-->
+          <div class="card">
+            <canvas id="gauge-temperature"></canvas>
+          </div>
+          <!--HUMIDITY-->
+          <div class="card">
+            <canvas id="gauge-humidity"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!--CHARTS-->
+      <div id="charts-div">
+        <!--SET NUMBER OF READINGS INPUT FIELD-->
+        <div>
+          <p><span class ="date-time"> Number of readings: <input type="number" id="charts-range"></span></p>
+        </div>
+        <!--ECG-CHART-->
+        <div class="cards">
+          <div class="card">
+            <p style = "font-weight: bold;"><i class="fa-solid fa-heart-pulse" style="color:#bf0d0d;"></i> Electrocardiogram</p>
+            <div id="chart-ecg" class="chart-container"></div>
+          </div>
+        </div>
+      </div>
+
+    <!--BUTTONS TO HANDLE DATA-->
+    <p>
+      <!--View data button-->
+      <button id="view-data-button" style = "font-weight: bold;">View all data</button>
+      <!--Hide data button-->
+      <button id="hide-data-button" style= "display:none; font-weight: bold;">Hide data</button>
+      <!--Delete data button-->
+      <button id="delete-button" style = "background-color: #c52c2c; color: white;
+      font-weight: bold;">Delete data</button>
+    </p>
+    <!--Modal to delete data-->
+    <div id="delete-modal" class="modal" sytle="display:none">
+      <span onclick = "document.getElementById('delete-modal').style.display='none'" class="close" title="Close Modal">×</span>
+      <form id= "delete-data-form" class="modal-content" action="/">
+        <div class="container">
+          <h1>Delete Data</h1>
+          <p>Are you sure you want to delete all data from database?</p>
+          <div class="clearfix">
+            <button type="button" onclick="document.getElementById('delete-modal').style.display='none'" class="cancelbtn">Cancel</button>
+            <button type="submit" onclick="document.getElementById('delete-modal').style.display='none'" class="deletebtn">Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!--TABLE WITH ALL DATA-->
+    <div class ="cardsv2">
+      <div class="card" id="table-container" style= "display:none;">
+        <table id="readings-table">
+            <tr id="theader">
+              <th>Timestamp</th>
+              <th>BPM</th>
+              <th>Pulse Pressure</th>
+              <th>Temperature</th>
+              <th>Humidity</th>
+            </tr>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+        <p><button id="load-data" style= "display:none;">More results...</button></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!--EXTRA DIV-->
+</div>
+
+    <!--INCLUDE JS FILES-->
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/charts-definition.js"></script>
+    <script src="scripts/gauges-definition.js"></script>
+    <script src="scripts/index.js"></script>
+
+  </body>
+
+</html>
