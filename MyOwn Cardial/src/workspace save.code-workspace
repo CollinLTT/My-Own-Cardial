@@ -1,0 +1,97 @@
+{
+	"folders": [
+		{
+			"path": "../../Lab 0"
+		},
+		{
+			"name": "display",
+			"path": "../../display"
+		},
+		{
+			"name": "Lab 1 - Part 1",
+			"path": "../../Lab 1 - Part 1"
+		},
+		{
+			"name": "Lab 1 - Part 2",
+			"path": "../../Lab 1 - Part 2"
+		},
+		{
+			"name": "Lab 1 - Part 3",
+			"path": "../../Lab 1 - Part 3"
+		},
+		{
+			"name": "Lab 2",
+			"path": "../../Lab 2"
+		},
+		{
+			"name": "Lab 3",
+			"path": "../../Lab 3"
+		},
+		{
+			"name": "MyOwn Cardial",
+			"path": ".."
+		},
+		{
+			"name": "Lab 4 - Part A",
+			"path": "../../Lab 4 - Part A"
+		},
+		{
+			"name": "Lab 4 - Part B",
+			"path": "../../Lab 4 - Part B"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"chrono": "cpp",
+			"array": "cpp",
+			"atomic": "cpp",
+			"*.tcc": "cpp",
+			"cctype": "cpp",
+			"clocale": "cpp",
+			"cmath": "cpp",
+			"cstdarg": "cpp",
+			"cstddef": "cpp",
+			"cstdint": "cpp",
+			"cstdio": "cpp",
+			"cstdlib": "cpp",
+			"cstring": "cpp",
+			"ctime": "cpp",
+			"cwchar": "cpp",
+			"cwctype": "cpp",
+			"deque": "cpp",
+			"unordered_map": "cpp",
+			"unordered_set": "cpp",
+			"vector": "cpp",
+			"exception": "cpp",
+			"algorithm": "cpp",
+			"functional": "cpp",
+			"iterator": "cpp",
+			"map": "cpp",
+			"memory": "cpp",
+			"memory_resource": "cpp",
+			"numeric": "cpp",
+			"optional": "cpp",
+			"random": "cpp",
+			"ratio": "cpp",
+			"string": "cpp",
+			"string_view": "cpp",
+			"system_error": "cpp",
+			"tuple": "cpp",
+			"type_traits": "cpp",
+			"utility": "cpp",
+			"fstream": "cpp",
+			"initializer_list": "cpp",
+			"iomanip": "cpp",
+			"iosfwd": "cpp",
+			"istream": "cpp",
+			"limits": "cpp",
+			"new": "cpp",
+			"ostream": "cpp",
+			"sstream": "cpp",
+			"stdexcept": "cpp",
+			"streambuf": "cpp",
+			"cinttypes": "cpp",
+			"typeinfo": "cpp"
+		}
+	}
+}
