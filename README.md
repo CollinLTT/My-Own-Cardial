@@ -1,4 +1,4 @@
-#My Own Cardial
+# My Own Cardial
 A project made for the class CS-596 at San Diego State University in the Spring of 2023.
 The iOS app was built for iOS 16.4.1
 
